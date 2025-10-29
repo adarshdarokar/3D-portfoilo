@@ -201,7 +201,7 @@ const projects = [
     source_code_link: "https://github.com/adarshdarokar/my-rider",
   },
   {
-    name: "Fizzi",
+    name: "Fizzi_3D",
     description:
       "Fizzi Can is a 3D interactive juice website built with GSAP and Framer Motion, featuring smooth animations and a refreshing visual experience.",
     tags: [
