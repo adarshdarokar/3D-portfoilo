@@ -124,29 +124,32 @@ const Contact = () => {
 
         {/* ---------- Social Links Section ---------- */}
         <div className='flex justify-center gap-6 mt-10'>
-          <a
-            href='https://github.com/yourusername'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='text-white hover:text-[#6e5494] transition-colors duration-300 text-3xl'
-          >
-            <FaGithub />
-          </a>
-          <a
-            href='https://linkedin.com/in/yourusername'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='text-white hover:text-[#0077b5] transition-colors duration-300 text-3xl'
-          >
-            <FaLinkedin />
-          </a>
-          <a
-            href='mailto:yourmail@gmail.com'
-            className='text-white hover:text-[#ea4335] transition-colors duration-300 text-3xl'
-          >
-            <FaEnvelope />
-          </a>
-        </div>
+  <a
+    href='https://github.com/adarshdarokar'
+    target='_blank'
+    rel='noopener noreferrer'
+    className='text-white hover:text-[#6e5494] transition-colors duration-300 text-3xl'
+  >
+    <FaGithub />
+  </a>
+
+  <a
+    href='https://www.linkedin.com/in/adarshdarokar/'
+    target='_blank'
+    rel='noopener noreferrer'
+    className='text-white hover:text-[#0077b5] transition-colors duration-300 text-3xl'
+  >
+    <FaLinkedin />
+  </a>
+
+  <a
+    href='mailto:adarshdarokar55@gmail.com'
+    className='text-white hover:text-[#ea4335] transition-colors duration-300 text-3xl'
+  >
+    <FaEnvelope />
+  </a>
+</div>
+
       </motion.div>
 
       {/* ---------- Right Side (3D Globe) ---------- */}
