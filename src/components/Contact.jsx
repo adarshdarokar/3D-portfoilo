@@ -1,19 +1,13 @@
 import React, { useRef, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
-import emailjs from "@emailjs/browser";
 
 import { styles } from "../styles";
 import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
-// ------------------------------
-// STATIC ANIMATION
-// ------------------------------
-const sentAnim = {
-  scale: [1, 1.1, 1],
-};
+const sentAnim = { scale: [1, 1.1, 1] };
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -27,32 +21,26 @@ const Contact = () => {
   const [buttonText, setButtonText] = useState("Send");
   const [loading, setLoading] = useState(false);
 
-  // ------------------------------
-  // INPUT CHANGE HANDLER (MEMOIZED)
-  // ------------------------------
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  // ------------------------------
-  // SUBMIT HANDLER
-  // ------------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setButtonText("Sending...");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 800));
 
       setButtonText("Sended ✅");
       setForm({ name: "", email: "", message: "" });
       setLoading(false);
 
-      setTimeout(() => setButtonText("Send"), 1500);
+      setTimeout(() => setButtonText("Send"), 1400);
     } catch (err) {
-      console.error("❌ EmailJS Error:", err);
+      console.error("❌ Error:", err);
       setButtonText("Failed ❌");
       setLoading(false);
 
@@ -60,19 +48,26 @@ const Contact = () => {
     }
   };
 
-  // ------------------------------
-  // MEMOIZED SLIDE VARIANTS
-  // ------------------------------
-  const leftAnim = useMemo(() => slideIn("left", "tween", 0.2, 1), []);
-  const rightAnim = useMemo(() => slideIn("right", "tween", 0.2, 1), []);
+  const leftAnim = useMemo(() => slideIn("left", "tween", 0.15, 0.9), []);
+  const rightAnim = useMemo(() => slideIn("right", "tween", 0.15, 0.9), []);
 
   return (
     <div className="xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden">
-      
+
       {/* ---------- LEFT: FORM ---------- */}
       <motion.div
         variants={leftAnim}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
+        initial="hidden"
+        animate="show"
+        className="
+          flex-[0.75] 
+          bg-black-100 
+          p-6               /* UPDATED: smaller padding */
+          rounded-2xl 
+          max-w-[600px]     /* UPDATED: wider form */
+          w-full 
+          mx-auto
+        "
       >
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
@@ -80,47 +75,79 @@ const Contact = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="mt-12 flex flex-col gap-8"
+          className="mt-8 flex flex-col gap-6"   /* UPDATED: smaller vertical gap */
         >
+
+          {/* Name */}
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Name</span>
+            <span className="text-white font-medium mb-2">Your Name</span>
             <input
               type="text"
               name="name"
               value={form.name}
               onChange={handleChange}
               placeholder="What's your good name?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
+              className="
+                bg-tertiary 
+                py-3 px-5          /* UPDATED: smaller height */
+                placeholder:text-secondary 
+                text-white 
+                rounded-lg 
+                outline-none 
+                border-none 
+                font-medium
+              "
               required
             />
           </label>
 
+          {/* Email */}
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Email</span>
+            <span className="text-white font-medium mb-2">Your Email</span>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
               placeholder="What's your email address?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
+              className="
+                bg-tertiary 
+                py-3 px-5          /* UPDATED */
+                placeholder:text-secondary 
+                text-white 
+                rounded-lg 
+                outline-none 
+                border-none 
+                font-medium
+              "
               required
             />
           </label>
 
+          {/* Message */}
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Message</span>
+            <span className="text-white font-medium mb-2">Your Message</span>
             <textarea
-              rows={7}
+              rows={5}             /* UPDATED: smaller height */
               name="message"
               value={form.message}
               onChange={handleChange}
               placeholder="What do you want to say?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
+              className="
+                bg-tertiary 
+                py-3 px-5            /* UPDATED */
+                placeholder:text-secondary 
+                text-white 
+                rounded-lg 
+                outline-none 
+                border-none 
+                font-medium
+              "
               required
             />
           </label>
 
+          {/* Button */}
           <motion.button
             type="submit"
             whileTap={{ scale: 0.95 }}
@@ -131,8 +158,17 @@ const Contact = () => {
                 ? { scale: [1, 0.9, 1] }
                 : { scale: 1 }
             }
-            transition={{ duration: 0.4 }}
-            className="py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary"
+            transition={{ duration: 0.35 }}
+            className="
+              py-2.5 px-7         /* UPDATED: smaller button */
+              rounded-xl 
+              outline-none 
+              w-fit 
+              text-white 
+              font-bold 
+              shadow-md 
+              shadow-primary
+            "
             style={{
               backgroundColor:
                 buttonText === "Sended ✅"
@@ -146,8 +182,8 @@ const Contact = () => {
           </motion.button>
         </form>
 
-        {/* ---------- SOCIAL LINKS ---------- */}
-        <div className="flex justify-center gap-6 mt-10">
+        {/* SOCIAL ICONS */}
+        <div className="flex justify-center gap-6 mt-8">
           <a
             href="https://github.com/adarshdarokar"
             target="_blank"
@@ -175,13 +211,16 @@ const Contact = () => {
         </div>
       </motion.div>
 
-      {/* ---------- RIGHT: 3D EARTH ---------- */}
+      {/* ---------- RIGHT: EARTH 3D ---------- */}
       <motion.div
         variants={rightAnim}
+        initial="hidden"
+        animate="show"
         className="xl:flex-1 xl:h-[520px] md:h-[450px] h-[300px]"
       >
         <EarthCanvas />
       </motion.div>
+
     </div>
   );
 };
